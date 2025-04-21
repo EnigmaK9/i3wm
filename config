@@ -1,0 +1,311 @@
+###############################################################################
+#                            I3 WINDOW MANAGER CONFIG                         #
+#                                                                             #
+# This configuration file is for i3wm, a tiling window manager for X11        #
+# Last updated: April 20, 2025                                                #
+###############################################################################
+
+#------------------------------------------------------------------------------
+# BASIC SETTINGS AND VARIABLES
+#------------------------------------------------------------------------------
+
+# Define the mod key (Windows/Super key)
+set $mod Mod4
+
+# Font for window titles and bar
+font pango:System San Francisco Display 10, FontAwesome 10
+
+# Define colors for various UI elements
+set $bg-color            #2f343f
+set $inactive-bg-color   #2f343f
+set $text-color          #f3f4f5
+set $inactive-text-color #676E7D
+set $urgent-bg-color     #E53935
+
+# variables for workspace
+set $workspace1 "1: Terminal "
+set $workspace2 "2: Code "
+set $workspace3 "3: Browser "
+set $workspace4 "4: Files | Browser "
+set $workspace5 "5: PDF "
+set $workspace6 "6: Office "
+set $workspace7 "7: Video "
+set $workspace8 "8: Misc "
+set $workspace9 "9: Pomodoro "
+set $workspace10 "10: Misc "
+
+#------------------------------------------------------------------------------
+# APPEARANCE SETTINGS
+#------------------------------------------------------------------------------
+
+# Remove window borders and set gaps
+for_window [class="^.*"] border pixel 0
+gaps inner 5
+gaps outer 5
+hide_edge_borders both
+
+# Window colors
+#                       border              background         text                 indicator
+client.focused          $bg-color           $bg-color          $text-color          #00ff00
+client.unfocused        $inactive-bg-color  $inactive-bg-color $inactive-text-color #00ff00
+client.focused_inactive $inactive-bg-color  $inactive-bg-color $inactive-text-color #00ff00
+client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color          #00ff00
+client.background no
+
+# Set transparency for terminal applications
+for_window [class="X-Terminal-emulator"] opacity 0.9
+for_window [class="Gnome-terminal"] opacity 0.8
+for_window [class="gnome-terminal-server"] opacity 0.8
+
+#------------------------------------------------------------------------------
+# BASIC KEYBINDINGS
+#------------------------------------------------------------------------------
+
+# Use Mouse+$mod to drag floating windows
+floating_modifier $mod
+
+# Start terminal
+bindsym $mod+Return exec i3-sensible-terminal
+
+# Kill focused window
+bindsym $mod+q kill
+
+# Program launcher (Rofi with custom styling)
+bindsym $mod+d exec rofi -show run -lines 3 -eh 2 -width 90 -padding 800 -opacity "85" -bw 0 -bc "$bg-color" -bg "$bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "#9575cd" -font "Monospace Regular 16"
+
+# Enter fullscreen mode for focused container
+bindsym $mod+f fullscreen toggle
+bindsym <F11> fullscreen toggle
+
+# Toggle floating/tiling mode
+bindsym $mod+Shift+space floating toggle
+
+# Change focus between tiling/floating windows
+bindsym $mod+space focus mode_toggle
+
+# Focus parent container
+bindsym $mod+a focus parent
+
+# Split orientation toggle
+bindsym $mod+t split toggle
+
+#------------------------------------------------------------------------------
+# WINDOW NAVIGATION
+#------------------------------------------------------------------------------
+
+# Change focus
+bindsym $mod+j focus left
+bindsym $mod+k focus down
+bindsym $mod+l focus up
+bindsym $mod+semicolon focus right
+
+# Alternative focus with arrow keys
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# Move focused window
+bindsym $mod+Shift+j move left
+bindsym $mod+Shift+k move down
+bindsym $mod+Shift+l move up
+bindsym $mod+Shift+semicolon move right
+
+# Alternative window movement with arrow keys
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# Custom horizontal focus commands
+bindsym $mod+h focus left
+bindsym $mod+Shift+h focus left 30
+
+#------------------------------------------------------------------------------
+# LAYOUT MANAGEMENT
+#------------------------------------------------------------------------------
+
+# Change container layout (stacked, tabbed, toggle split)
+# Remapped 's' to stacked layout
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# Resize mode
+bindsym $mod+r mode "resize"
+mode "resize" {
+    # Resize with vim keys
+    bindsym j resize shrink width 10 px or 10 ppt
+    bindsym k resize grow height 10 px or 10 ppt
+    bindsym l resize shrink height 10 px or 10 ppt
+    bindsym semicolon resize grow width 10 px or 10 ppt
+
+    # Resize with arrow keys
+    bindsym Left resize shrink width 10 px or 10 ppt
+    bindsym Down resize grow height 10 px or 10 ppt
+    bindsym Up resize shrink height 10 px or 10 ppt
+    bindsym Right resize grow width 10 px or 10 ppt
+
+    # Exit resize mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+# Gap control - remapped from 's' to 'g'
+bindsym $mod+g gaps inner current plus 5
+bindsym $mod+Shift+g gaps inner current minus 5
+bindsym $mod+x gaps outer current plus 5
+bindsym $mod+Shift+x gaps outer current minus 5
+bindsym $mod+Shift+t gaps inner all set 10; gaps outer all set 10
+
+#------------------------------------------------------------------------------
+# WORKSPACE MANAGEMENT
+#------------------------------------------------------------------------------
+
+# Switch to workspace
+bindsym $mod+1 workspace $workspace1; exec --no-startup-id ~/.config/i3/scripts/set_wallpaper.sh 1
+bindsym $mod+2 workspace $workspace2; exec --no-startup-id ~/.config/i3/scripts/set_wallpaper.sh 2
+bindsym $mod+3 workspace $workspace3; exec --no-startup-id ~/.config/i3/scripts/set_wallpaper.sh 3
+bindsym $mod+4 workspace $workspace4 ; exec --no-startup-id ~/.config/i3/scripts/set_wallpaper.sh 4
+bindsym $mod+5 workspace $workspace5; exec --no-startup-id ~/.config/i3/scripts/set_wallpaper.sh 5
+bindsym $mod+6 workspace $workspace6; exec --no-startup-id ~/.config/i3/scripts/set_wallpaper.sh 6
+bindsym $mod+7 workspace $workspace7; exec --no-startup-id ~/.config/i3/scripts/set_wallpaper.sh 7
+bindsym $mod+8 workspace $workspace8; exec --no-startup-id ~/.config/i3/scripts/set_wallpaper.sh 8
+bindsym $mod+9 workspace $workspace9; exec --no-startup-id ~/.config/i3/scripts/set_wallpaper.sh 9
+bindsym $mod+0 workspace $workspace10; exec --no-startup-id ~/.config/i3/scripts/set_wallpaper.sh 1
+
+# Move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $workspace1
+bindsym $mod+Shift+2 move container to workspace $workspace2
+bindsym $mod+Shift+3 move container to workspace $workspace3
+bindsym $mod+Shift+4 move container to workspace $workspace4
+bindsym $mod+Shift+5 move container to workspace $workspace5
+bindsym $mod+Shift+6 move container to workspace $workspace6
+bindsym $mod+Shift+7 move container to workspace $workspace7
+bindsym $mod+Shift+8 move container to workspace $workspace8
+bindsym $mod+Shift+9 move container to workspace $workspace9
+bindsym $mod+Shift+0 move container to workspace $workspace10
+
+# Assign applications to specific workspaces
+# Terminals
+assign [class="X-terminal-emulator"] $workspace1
+assign [class="org.gnome.Terminal"] $workspace1
+assign [class="Org.gnome.Nautilus"] $workspace1
+assign [class="Gnome-terminal"] $workspace1
+
+# Development
+assign [class="Code"] $workspace2
+
+# Browsers
+assign [class="Brave-browser"] $workspace3
+assign [class="brave-browser"] $workspace3
+assign [class="Brave-browser-nightly"] $workspace3
+assign [class="brave-browser-nightly"] $workspace3
+assign [class="Firefox-esr"] $workspace8
+
+# Media and documents
+assign [class="vlc"] $workspace5
+assign [class="totem"] $workspace5
+assign [class="org.gnome.Totem"] $workspace5
+assign [class="Atril"] $workspace5
+assign [class="Evince"] $workspace5
+
+# Communication
+assign [class="discord"] $workspace6
+assign [class="Thunderbird"] $workspace7
+
+# Productivity
+assign [class="org.gnome.Pomodoro"] $workspace9
+
+#------------------------------------------------------------------------------
+# SYSTEM CONTROLS
+#------------------------------------------------------------------------------
+
+# Screen brightness controls
+bindsym $mod+F11 exec --no-startup-id xbacklight -inc 10
+bindsym $mod+F12 exec --no-startup-id xbacklight -dec 10
+
+# Function key bindings
+bindsym $mod+F1 exec --no-startup-id echo "help" > /dev/null
+bindsym $mod+F3 exec sudo systemctl exec arandr
+bindsym $mod+F4 exec sudo systemctl suspend
+bindsym $mod+F5 exec sudo systemctl restart NetworkManager
+
+# Session management
+bindsym $mod+Shift+c reload    # Reload configuration
+bindsym $mod+Shift+r restart   # Restart i3 in-place
+# Exit i3 with confirmation
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+#------------------------------------------------------------------------------
+# MEDIA AND APPLICATION CONTROLS
+#------------------------------------------------------------------------------
+
+# Music player controls
+bindsym $mod+b exec --no-startup-id mocp -r
+bindsym $mod+v exec @term -e vis
+bindsym $mod+Shift+v exec --no-startup-id projectM-pulseaudio
+
+# Audio controls (uncomment if needed)
+# bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%
+# bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5%
+# bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle
+
+# Media player controls (uncomment if needed)
+# bindsym XF86AudioPlay exec playerctl play
+# bindsym XF86AudioPause exec playerctl pause
+# bindsym XF86AudioNext exec playerctl next
+# bindsym XF86AudioPrev exec playerctl previous
+
+# Brightness controls (uncomment if needed)
+# bindsym XF86MonBrightnessUp exec xbacklight -inc 20
+# bindsym XF86MonBrightnessDown exec xbacklight -dec 20
+
+# Touchpad controls (uncomment if needed)
+# bindsym XF86TouchpadToggle exec /some/path/toggletouchpad.sh
+
+#------------------------------------------------------------------------------
+# BAR CONFIGURATION
+#------------------------------------------------------------------------------
+
+bar {
+    # Set font and position
+    font pango:System San Francisco Display 10, FontAwesome 10
+    position bottom
+    tray_output none
+
+    # Use bumblebee-status for the status bar with selected modules
+    status_command ~/.config/i3/bumblebee-status/bumblebee-status -m disk:root cpu \
+        memory battery date time pasink pasource \
+        -p root.path=/ time.format="%H:%M:%S CW %V" date.format=" %Y %B %d " \
+        -t iceberg
+}
+
+#------------------------------------------------------------------------------
+# AUTOSTART APPLICATIONS
+#------------------------------------------------------------------------------
+
+# Set wallpaper
+exec_always feh --bg-scale ~/.config/i3/wallpapers/02wallpaper.jpg
+
+# Compositors for transparency and visual effects
+exec_always compton -f
+exec --no-startup-id picom -CGb
+
+# Color temperature adjustment (both redshift and gammastep are configured)
+exec --no-startup-id gammastep -c ~/.config/gammastep/config.ini
+exec --no-startup-id redshift -c /home/enigma/.config/i3/redshift.conf -l 0.0:0.0
+
+# Start terminal on login
+exec terminator
+
+# Automatic suspend options (uncomment to enable)
+# Suspend after 10 minutes of inactivity
+# exec --no-startup-id xautolock -time 10 -locker "systemctl suspend"
+#
+# Alternative suspend methods (choose one if needed)
+# Check idle time every 2 minutes and suspend if idle for 60+ seconds
+# exec --no-startup-id "while true; do xprintidle | grep -q '^[6-9][0-9]\|^[1-9][0-9][0-9]$' && systemctl suspend; sleep 120; done"
+#
+# Check idle time every hour and suspend if idle for 100,000+ milliseconds
+# exec --no-startup-id "while true; do xprintidle | grep -q '^[1-9][0-9][0-9][0-9][0-9][0-9]$' && systemctl suspend; sleep 3600; done"
