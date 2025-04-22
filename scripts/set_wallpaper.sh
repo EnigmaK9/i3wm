@@ -7,7 +7,7 @@ case "$1" in
   5) feh --bg-scale ~/.config/i3/wallpapers/05wallpaper.jpg ;;
   6) feh --bg-scale ~/.config/i3/wallpapers/06wallpaper.png ;;
   7) feh --bg-scale ~/.config/i3/wallpapers/07wallpaper.jpg ;;  
-  8) feh --bg-scale ~/.config/i3/wallpapers/08wallpaper.png ;;
+  8) feh --bg-scale ~/.config/i3/wallpapers/08wallpaper.jpg ;;
   9) feh --bg-scale ~/.config/i3/wallpapers/09wallpaper.png ;;
   10)feh --bg-scale ~/.config/i3/wallpapers/09wallpaper.jpg ;;
 esac
