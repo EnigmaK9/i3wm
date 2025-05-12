@@ -190,7 +190,8 @@ bindsym $mod+Shift+0 move container to workspace $workspace10
 # Terminals
 assign [class="X-terminal-emulator"] $workspace1
 assign [class="org.gnome.Terminal"] $workspace1
-assign [class="Org.gnome.Nautilus"] $workspace1
+# assign [class="org.gnome.Nautilus"] $workspace1
+assign [class="org.gnome.Nautilus"] $workspace4
 assign [class="Gnome-terminal"] $workspace1
 
 # Development
