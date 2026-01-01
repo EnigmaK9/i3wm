@@ -247,6 +247,11 @@ bindsym $mod+b exec --no-startup-id mocp -r
 bindsym $mod+v exec @term -e vis
 bindsym $mod+Shift+v exec --no-startup-id projectM-pulseaudio
 
+# Volume wheel (Razer BlackWidow V4)
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+
 # Audio controls (uncomment if needed)
 # bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%
 # bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5%
@@ -310,3 +315,18 @@ exec terminator
 #
 # Check idle time every hour and suspend if idle for 100,000+ milliseconds
 # exec --no-startup-id "while true; do xprintidle | grep -q '^[1-9][0-9][0-9][0-9][0-9][0-9]$' && systemctl suspend; sleep 3600; done"
+
+
+#------------------------------------------------------------------------------
+# AUTOSTART APPLICATIONS
+#------------------------------------------------------------------------------
+
+## === Auto suspend daemon ===
+## This script checks idle time using xprintidle.
+## If the user is idle for 10 minutes, the system will suspend.
+exec --no-startup-id ~/.config/i3/scripts/auto_suspend.sh &
+## === End auto suspend ===
+
+# Set wallpaper
+exec_always feh --bg-scale ~/.config/i3/wallpapers/02wallpaper.jpg
+
